@@ -174,3 +174,38 @@ input {
     font-size: 13px;
 }
 
+
+/* Auth */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    margin: 50px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 6px 20px;
+}
+
+.auth-container-box {
+    width: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color:#ffffff;
+}
+
+.auth-container-box form {
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    padding: 20px;
+}
+
+.auth-options {
+    display: flex;
+}
+
+.auth-options button {
+    width: 50%;
+    border: none;
+    padding: 10px;
+    color: rgb(35, 38, 47);
+    cursor: pointer;
+}

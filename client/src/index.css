@@ -127,6 +127,10 @@ input {
     padding: 10px;
 }
 
+.task-title {
+    width: 300px;
+}
+
 
 /* Modal */
 
@@ -208,4 +212,32 @@ input {
     padding: 10px;
     color: rgb(35, 38, 47);
     cursor: pointer;
+}
+
+.copyright {
+    font-size: 13px;
+    margin: 10px;
+    color: rgb(114,114,114);
+}
+
+.user-email {
+    float: right;
+    font-size: 13px;
+    margin: 10px;
+    color: rgb(114,114,114);
+}
+
+/* Progress bar */
+
+.outer-bar {
+    width: 200px;
+    height: 14px;
+    background-color: rgb(216,216, 216);
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+.inner-bar {
+    height: 14px;
+
 }

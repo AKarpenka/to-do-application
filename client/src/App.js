@@ -10,7 +10,7 @@ const App = () => {
     try {
       const response = await fetch(`http://localhost:8000/todos/${userEmail}`)
       const json = await response.json();
-      console.log(json);
+      // console.log(json);
       setTasks(json);
     } catch (error) {
       console.log(error);
@@ -24,8 +24,8 @@ const App = () => {
 
   return (
     <div className="app"> 
-      <ListHeader listName={'🌴 Holiday tick list'}/>
-      {sortedTasks?.map((task) => <ListItem key={task.id} task={task}/>)}
+      <ListHeader listName={'🌴 Holiday tick list'} getData={getData}/>
+      {sortedTasks?.map((task) => <ListItem key={task.id} task={task} getData={getData}/>)}
     </div>
   );
 }

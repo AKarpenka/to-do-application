@@ -52,8 +52,6 @@ const Modal = ({mode, setShowModal, getData, task}) => {
       ...data,
       [name]: value
     }));
-
-    console.log(data);
   }
 
   return (

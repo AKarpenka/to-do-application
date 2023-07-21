@@ -30,7 +30,6 @@ app.post('/todos', async (req,res) => {
     const id = uuidv4();
     const {user_email, title, progress, date} = req.body;
     
-    console.log(req.body);
     try {
         const newToDo = pool.query('INSERT INTO todos(id, user_email, title, progress, date) VALUES($1, $2, $3, $4, $5);', 
                     [id, user_email, title, progress, date]);
@@ -76,8 +75,6 @@ app.post('/signup', async (req, res) => {
         [email, hashedPassword]);
 
         const token = jwt.sign({email}, 'secret', {expiresIn: '1hr'});
-        console.log(email, hashedPassword);
-        console.log(token);
         res.json({email, token});
     } catch (error) {
         console.error(error);

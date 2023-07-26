@@ -201,7 +201,6 @@ input {
     margin: 50px;
     box-shadow: rgba(0, 0, 0, 0.15) 0 6px 20px;
     position: relative;
-    /* width: 500px; */
 }
 
 .auth-container-box {
@@ -216,6 +215,23 @@ input {
     flex-direction: column;
     height: 350px;
     padding: 20px;
+}
+
+.auth-container-box form div {
+    position: relative;
+}
+
+.auth-container-box form div input {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.eye {
+    position: absolute !important; 
+    top: 25px;
+    right: 20px;
+    cursor: pointer;
+    opacity: 0.8;
 }
 
 .auth-options {

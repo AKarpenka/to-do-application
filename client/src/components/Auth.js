@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {useCookies} from 'react-cookie';
+import Spinner from './Spinner';
 
 const Auth = () => {
   const [cookies, setCookie, removeCookie] = useCookies(null);
@@ -8,6 +9,7 @@ const Auth = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const viewLogin = (status) => {
     setError(null);
@@ -15,9 +17,11 @@ const Auth = () => {
   }
 
   const handleSubmit = async (e, endpoint) => {
+    setLoading(true);
     e.preventDefault();
 
     if(!isLogin && password !== confirmPassword) {
+      setLoading(false);
       setError('Make sure passwords match!');
       return;
     }
@@ -31,10 +35,12 @@ const Auth = () => {
     const data = await response.json();
 
     if(data.detail) {
+      setLoading(false);
       setError(data.detail);
     } else {
       setCookie('Email', data.email);
       setCookie('AuthToken', data.token);
+      setLoading(false);
 
       window.location.reload();
     }
@@ -94,6 +100,7 @@ const Auth = () => {
         </div>
 
       </div>
+      {loading && <Spinner/>}
     </div>
   );
 }

@@ -11,13 +11,24 @@ const App = () => {
   const authToken = cookies.AuthToken;
   const [tasks, setTasks] = useState(null);
 
+  const signOut = () => {
+    removeCookie('Email');
+    removeCookie('AuthToken');
+    window.location.reload();
+  }
+
   // const authToken = false;
 
   const getData = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_SERVERURL}/todos/${userEmail}`);
       const json = await response.json();
-      setTasks(json);
+      if(json?.name) {
+        console.error(json);
+        signOut();
+      } else {
+        setTasks(json);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -39,10 +50,14 @@ const App = () => {
       {
         authToken &&
         <div className="app">
-          <ListHeader listName={'🌴 Holiday tick list'} getData={getData}/>
+          <ListHeader 
+            listName={'🌴 Holiday tick list'} 
+            getData={getData}
+            signOut={signOut}
+          />
           <p className='user-email'>Welcome back {userEmail}</p>
           {sortedTasks?.map((task) => <ListItem key={task.id} task={task} getData={getData}/>)}
-          <p className='copyright'>Creatie coding LLC</p>
+          <p className='copyright'>© Created By Stasy Karpenka</p>
         </div>
       }
       

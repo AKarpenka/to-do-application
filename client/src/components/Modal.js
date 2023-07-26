@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useCookies } from "react-cookie";
+import Spinner from "./Spinner";
 
 const Modal = ({mode, setShowModal, getData, task}) => {
   const editMode = mode === "edit"? true : false;
   const [cookies, setCookie, removeCookie] = useCookies(null);
+  const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState({
     user_email: editMode ? task.user_email : cookies.Email,
@@ -13,6 +15,7 @@ const Modal = ({mode, setShowModal, getData, task}) => {
   });
 
   const postData = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const response = await fetch(`${process.env.REACT_APP_SERVERURL}/todos`, {
@@ -21,15 +24,18 @@ const Modal = ({mode, setShowModal, getData, task}) => {
         body: JSON.stringify(data)
       });
       if( response.status === 200) {
+        setLoading(false);
         setShowModal(false);
         getData();
       }
     } catch (error) {
+      setLoading(false);
       console.error(error);
     }
   }
 
   const editData = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const response = await fetch(`${process.env.REACT_APP_SERVERURL}/todos/${task.id}`, {
@@ -38,10 +44,12 @@ const Modal = ({mode, setShowModal, getData, task}) => {
         body: JSON.stringify(data) 
       });
       if( response.status === 200) {
+        setLoading(false);
         setShowModal(false);
         getData();
       }
     } catch (error) {
+      setLoading(false);
       console.error(error);
     }
   }
@@ -94,7 +102,9 @@ const Modal = ({mode, setShowModal, getData, task}) => {
             onClick={editMode ? editData : postData}
           />
         </form>
+
       </div>
+      {loading && <Spinner/>}
     </div>
   );
   }

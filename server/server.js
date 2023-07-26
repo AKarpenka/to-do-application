@@ -7,16 +7,25 @@ const {v4: uuidv4} = require('uuid');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+let token;
+
 app.use(cors());
 app.use(express.json());
-
-app.get('/', (req, res) => {
-    res.send('Hello');
-});
 
 //get all todos
 app.get('/todos/:userEmail', async (req, res) => {
     const {userEmail} = req.params;
+
+    jwt.verify(token, 'secret', (err, decoded) => {
+        if (err) {
+            token = '';
+            res.json({
+                name: 'TokenExpiredError',
+                message: 'jwt expired'
+            });
+        }
+    });
+
     try {
         const todos = await pool.query('SELECT * FROM todos WHERE user_email = $1', [userEmail]);
         res.json(todos.rows); 
@@ -74,7 +83,7 @@ app.post('/signup', async (req, res) => {
         const signUp = await pool.query('INSERT INTO users(email, hashed_password) VALUES($1, $2);', 
         [email, hashedPassword]);
 
-        const token = jwt.sign({email}, 'secret', {expiresIn: '1hr'});
+        token = jwt.sign({email}, 'secret', {expiresIn: '1m'});
         res.json({email, token});
     } catch (error) {
         console.error(error);
@@ -87,7 +96,7 @@ app.post('/signup', async (req, res) => {
 //login
 app.post('/login', async (req, res) => {
     const {email, password} = req.body;
-    const token = jwt.sign({email}, 'secret', {expiresIn: '1hr'});
+    token = jwt.sign({email}, 'secret', {expiresIn: '1m'});
 
     try {
         const users = await pool.query('SELECT * FROM users WHERE email = $1', [email]);

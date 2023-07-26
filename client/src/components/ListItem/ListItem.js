@@ -1,7 +1,8 @@
-import ProgressBar from './ProgressBar';
-import TickIcon from './TickIcon';
+import ProgressBar from '../ProgressBar/ProgressBar';
+import TickIcon from '../TickIcon/TickIcon';
 import {useState} from 'react';
-import Modal from './Modal';
+import Modal from '../Modal/Modal';
+import './ListItem.scss';
 
 const ListItem = ({task, getData}) => {
   const [showModal, setShowModal] = useState(false);
@@ -21,7 +22,7 @@ const ListItem = ({task, getData}) => {
 
   return (
     <li className="list-item"> 
-      <div className="info-conteiner">
+      <div className="info-container">
         <TickIcon/>
         <p className="task-title">{task.title}</p>
         <ProgressBar progress={task.progress}/>

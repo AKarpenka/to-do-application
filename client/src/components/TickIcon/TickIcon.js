@@ -1,3 +1,5 @@
+import './TickIcon.scss';
+
 const TickIcon = () => {
     return (
       <svg 

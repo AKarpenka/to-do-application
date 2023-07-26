@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {useCookies} from 'react-cookie';
-import Spinner from './Spinner';
+import Spinner from '../Spinner/Spinner';
+import './Auth.scss';
 
 const Auth = () => {
   const [cookies, setCookie, removeCookie] = useCookies(null);
@@ -47,10 +48,6 @@ const Auth = () => {
       window.location.reload();
     }
   }
-
-  // const togglePassword = (func) => {
-  //   func(!passwordShown);
-  // };
 
   return (
     <div className="auth-container"> 

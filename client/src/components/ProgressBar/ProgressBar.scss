@@ -1,0 +1,14 @@
+/* Progress bar */
+
+.outer-bar {
+    width: 200px;
+    height: 14px;
+    background-color: rgb(216,216, 216);
+    border-radius: 7px;
+    overflow: hidden;
+
+    .inner-bar {
+        height: 14px;
+    
+    }
+}

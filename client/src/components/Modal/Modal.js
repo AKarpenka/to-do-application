@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-import Spinner from "./Spinner";
+import Spinner from "../Spinner/Spinner";
+import './Modal.scss';
 
 const Modal = ({mode, setShowModal, getData, task}) => {
   const editMode = mode === "edit"? true : false;

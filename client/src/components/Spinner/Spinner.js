@@ -1,4 +1,5 @@
 import PacmanLoader from 'react-spinners/PacmanLoader';
+import './Spinner.scss';
 
 const Spinner = () => {
     return (

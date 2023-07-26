@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import Modal from './Modal';
+import Modal from '../Modal/Modal';
+import './ListHeader.scss';
 
 const ListHeader = ({listName, getData, signOut}) => {
   const [showModal, setShowModal] = useState(false);

@@ -1,3 +1,5 @@
+import './ProgressBar.scss';
+
 const ProgressBar = ({progress}) => {
   const colors = [
     'rgb(255,214,161)',

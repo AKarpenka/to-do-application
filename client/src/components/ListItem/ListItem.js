@@ -1,23 +1,18 @@
 import ProgressBar from '../ProgressBar/ProgressBar';
 import TickIcon from '../TickIcon/TickIcon';
 import {useState} from 'react';
+import { useHttp } from '../../hooks/http.hook';
 import Modal from '../Modal/Modal';
 import './ListItem.scss';
 
 const ListItem = ({task, getData}) => {
   const [showModal, setShowModal] = useState(false);
+  const {request} = useHttp();
 
   const deleteToDo = async () => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_SERVERURL}/todos/${task.id}`, {
-        method: "DELETE"
-      });
-      if(response.status===200) {
-        getData();
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    request(`todos/${task.id}`, "DELETE")
+      .then(getData())
+      .catch(res => console.error(res))
   }
 
   return (

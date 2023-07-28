@@ -1,16 +1,20 @@
-import ListHeader from './components/ListHeader/ListHeader';
-import ListItem from './components/ListItem/ListItem';
+import ListHeader from '../ListHeader/ListHeader';
+import ListItem from '../ListItem/ListItem';
 import {useEffect, useState} from 'react';
-import Auth from './components/Auth/Auth';
+import Auth from '../Auth/Auth';
 import { useCookies } from 'react-cookie';
+import {useHttp} from '../../hooks/http.hook';
 import PacmanLoader from 'react-spinners/PacmanLoader';
 
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(null);
   const userEmail = cookies.Email;
   const authToken = cookies.AuthToken;
+
   const [tasks, setTasks] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const {request} = useHttp();
 
   const signOut = () => {
     removeCookie('Email');
@@ -20,21 +24,16 @@ const App = () => {
 
   const getData = async () => {
     setLoading(true);
-    try {
-      const response = await fetch(`${process.env.REACT_APP_SERVERURL}/todos/${userEmail}`);
-      const json = await response.json();
-      if(json?.name) {
+    request(`todos/${userEmail}`)
+      .then((data) => {
         setLoading(false);
-        console.error(json);
+        setTasks(data);
+      })
+      .catch((err) => {
         signOut();
-      } else {
         setLoading(false);
-        setTasks(json);
-      }
-    } catch (error) {
-      setLoading(false);
-      console.error(error);
-    }
+        console.error(err);
+      })
   }
 
   useEffect(()=> {

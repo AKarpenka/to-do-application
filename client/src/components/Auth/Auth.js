@@ -1,10 +1,12 @@
 import {useState} from 'react';
 import {useCookies} from 'react-cookie';
+import {useHttp} from '../../hooks/http.hook';
 import Spinner from '../Spinner/Spinner';
 import './Auth.scss';
 
 const Auth = () => {
   const [cookies, setCookie, removeCookie] = useCookies(null);
+
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState(null);
   const [email, setEmail] = useState(null);
@@ -13,6 +15,8 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
   const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+
+  const {request} = useHttp();
 
   const viewLogin = (status) => {
     setError(null);
@@ -29,13 +33,7 @@ const Auth = () => {
       return;
     }
 
-    const response = await fetch(`${process.env.REACT_APP_SERVERURL}/${endpoint}`, {
-      method: "POST",
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email, password})
-    });
-    
-    const data = await response.json();
+    const data = await request(endpoint, "POST", JSON.stringify({email, password}));
 
     if(data.detail) {
       setLoading(false);

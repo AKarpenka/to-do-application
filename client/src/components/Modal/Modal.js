@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useCookies } from "react-cookie";
+import { useHttp } from "../../hooks/http.hook";
 import Spinner from "../Spinner/Spinner";
 import './Modal.scss';
 
@@ -7,6 +8,7 @@ const Modal = ({mode, setShowModal, getData, task}) => {
   const editMode = mode === "edit"? true : false;
   const [cookies, setCookie, removeCookie] = useCookies(null);
   const [loading, setLoading] = useState(false);
+  const {request} = useHttp();
 
   const [data, setData] = useState({
     user_email: editMode ? task.user_email : cookies.Email,
@@ -18,41 +20,31 @@ const Modal = ({mode, setShowModal, getData, task}) => {
   const postData = async (e) => {
     setLoading(true);
     e.preventDefault();
-    try {
-      const response = await fetch(`${process.env.REACT_APP_SERVERURL}/todos`, {
-        method: "POST",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-      });
-      if( response.status === 200) {
+    request('todos', "POST", JSON.stringify(data))
+      .then(() => {
         setLoading(false);
         setShowModal(false);
         getData();
-      }
-    } catch (error) {
-      setLoading(false);
-      console.error(error);
-    }
+      })
+      .catch(err => {
+        setLoading(false);
+        console.error(err);
+      });
   }
 
   const editData = async (e) => {
     setLoading(true);
     e.preventDefault();
-    try {
-      const response = await fetch(`${process.env.REACT_APP_SERVERURL}/todos/${task.id}`, {
-        method: "PUT",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data) 
-      });
-      if( response.status === 200) {
+    request(`todos/${task.id}`, "PUT", JSON.stringify(data))
+      .then(() => {
         setLoading(false);
         setShowModal(false);
         getData();
-      }
-    } catch (error) {
-      setLoading(false);
-      console.error(error);
-    }
+      })
+      .catch(err => {
+        setLoading(false);
+        console.error(err);
+      });
   }
 
   const handleChange = (e) => {

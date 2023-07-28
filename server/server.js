@@ -83,7 +83,7 @@ app.post('/signup', async (req, res) => {
         const signUp = await pool.query('INSERT INTO users(email, hashed_password) VALUES($1, $2);', 
         [email, hashedPassword]);
 
-        token = jwt.sign({email}, 'secret', {expiresIn: '1m'});
+        token = jwt.sign({email}, 'secret', {expiresIn: '1hr'});
         res.json({email, token});
     } catch (error) {
         console.error(error);
@@ -96,7 +96,7 @@ app.post('/signup', async (req, res) => {
 //login
 app.post('/login', async (req, res) => {
     const {email, password} = req.body;
-    token = jwt.sign({email}, 'secret', {expiresIn: '1m'});
+    token = jwt.sign({email}, 'secret', {expiresIn: '1hr'});
 
     try {
         const users = await pool.query('SELECT * FROM users WHERE email = $1', [email]);

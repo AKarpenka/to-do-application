@@ -1,19 +1,29 @@
+import {useEffect, useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useCookies } from 'react-cookie';
+import PacmanLoader from 'react-spinners/PacmanLoader';
+import {useHttp} from '../../hooks/http.hook';
 import ListHeader from '../ListHeader/ListHeader';
 import ListItem from '../ListItem/ListItem';
-import {useEffect, useState} from 'react';
 import Auth from '../Auth/Auth';
-import { useCookies } from 'react-cookie';
-import {useHttp} from '../../hooks/http.hook';
-import PacmanLoader from 'react-spinners/PacmanLoader';
+
+import {
+  tasksFetching, 
+  authTokenExp, 
+  tasksFetched, 
+  tasksFetchingError, 
+  selectAll
+} from '../ListItem/ListItemSlice';
 
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(null);
   const userEmail = cookies.Email;
   const authToken = cookies.AuthToken;
 
-  const [tasks, setTasks] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const tasks = useSelector(selectAll);
+  const {tasksLoadingStatus} = useSelector(state => state.tasks);
 
+  const dispatch = useDispatch();
   const {request} = useHttp();
 
   const signOut = () => {
@@ -23,23 +33,26 @@ const App = () => {
   }
 
   const getData = async () => {
-    setLoading(true);
+    dispatch(tasksFetching());
     request(`todos/${userEmail}`)
-      .then((data) => {
-        setLoading(false);
-        setTasks(data);
+      .then(data => {
+        if(data.name) {
+          dispatch(authTokenExp());
+          signOut();
+        } else { 
+          dispatch(tasksFetched(data))
+        }
       })
-      .catch((err) => {
-        signOut();
-        setLoading(false);
-        console.error(err);
-      })
+      .catch((err) =>{
+        dispatch(tasksFetchingError());
+      });
   }
 
   useEffect(()=> {
     if(authToken) {
       getData();
     }
+    // eslint-disable-next-line
   }, []);
 
   //Sort by date 
@@ -61,7 +74,7 @@ const App = () => {
           <PacmanLoader
             className='loading-icon'
             color={'rgb(255,175,163)'}
-            loading={loading}
+            loading={tasksLoadingStatus === 'loading' ? true : false}
             size={20}
             aria-label="Loading"
             />

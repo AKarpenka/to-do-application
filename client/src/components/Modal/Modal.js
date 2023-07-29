@@ -1,16 +1,30 @@
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useHttp } from "../../hooks/http.hook";
+import { useDispatch, useSelector } from "react-redux";
+import {v4 as uuidv4} from 'uuid';
 import Spinner from "../Spinner/Spinner";
 import './Modal.scss';
+
+import {
+  tasksFetching,
+  addTask,
+  editTask,
+  tasksFetchingError,
+  selectAll
+} from '../ListItem/ListItemSlice';
 
 const Modal = ({mode, setShowModal, getData, task}) => {
   const editMode = mode === "edit"? true : false;
   const [cookies, setCookie, removeCookie] = useCookies(null);
-  const [loading, setLoading] = useState(false);
+
+  const tasksLoadingStatus = useSelector(selectAll);
   const {request} = useHttp();
 
+  const dispatch = useDispatch();
+
   const [data, setData] = useState({
+    id: editMode ? task.id : uuidv4(),
     user_email: editMode ? task.user_email : cookies.Email,
     title: editMode ? task.title : "",
     progress: editMode ? task.progress : "0",
@@ -18,33 +32,25 @@ const Modal = ({mode, setShowModal, getData, task}) => {
   });
 
   const postData = async (e) => {
-    setLoading(true);
+    dispatch(tasksFetching());
     e.preventDefault();
     request('todos', "POST", JSON.stringify(data))
       .then(() => {
-        setLoading(false);
+        dispatch(addTask(data));
         setShowModal(false);
-        getData();
       })
-      .catch(err => {
-        setLoading(false);
-        console.error(err);
-      });
+      .catch(() => dispatch(tasksFetchingError()))
   }
 
   const editData = async (e) => {
-    setLoading(true);
+    dispatch(tasksFetching());
     e.preventDefault();
     request(`todos/${task.id}`, "PUT", JSON.stringify(data))
       .then(() => {
-        setLoading(false);
+        dispatch(editTask({id: task.id, changes: data}));
         setShowModal(false);
-        getData();
       })
-      .catch(err => {
-        setLoading(false);
-        console.error(err);
-      });
+      .catch(() => dispatch(tasksFetchingError()))
   }
 
   const handleChange = (e) => {
@@ -97,7 +103,7 @@ const Modal = ({mode, setShowModal, getData, task}) => {
         </form>
 
       </div>
-      {loading && <Spinner/>}
+      {tasksLoadingStatus === 'loading' && <Spinner/>}
     </div>
   );
   }

@@ -9,6 +9,7 @@ const Auth = () => {
 
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState(null);
+
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);

@@ -1,18 +1,25 @@
 import ProgressBar from '../ProgressBar/ProgressBar';
 import TickIcon from '../TickIcon/TickIcon';
 import {useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHttp } from '../../hooks/http.hook';
 import Modal from '../Modal/Modal';
 import './ListItem.scss';
+
+import { removeTask, tasksFetchingError, selectAll} from './ListItemSlice';
 
 const ListItem = ({task, getData}) => {
   const [showModal, setShowModal] = useState(false);
   const {request} = useHttp();
 
+  const tasks = useSelector(selectAll);
+  const dispatch = useDispatch();
+
   const deleteToDo = async () => {
+    const filteredTasks = tasks.filter(el => el.id !== task.id);
     request(`todos/${task.id}`, "DELETE")
-      .then(getData())
-      .catch(res => console.error(res))
+      .then(() => dispatch(removeTask(filteredTasks)))
+      .catch(() => dispatch(tasksFetchingError()))
   }
 
   return (

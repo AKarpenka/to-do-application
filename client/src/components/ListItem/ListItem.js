@@ -8,7 +8,7 @@ import './ListItem.scss';
 
 import { removeTask, tasksFetchingError, selectAll} from './ListItemSlice';
 
-const ListItem = ({task, getData}) => {
+const ListItem = ({task}) => {
   const [showModal, setShowModal] = useState(false);
   const {request} = useHttp();
 
@@ -35,7 +35,7 @@ const ListItem = ({task, getData}) => {
         <button className="delete" onClick={deleteToDo}>DELETE</button>
       </div>
 
-      {showModal && <Modal mode={'edit'} setShowModal={setShowModal} getData={getData} task={task}/>}
+      {showModal && <Modal mode={'edit'} setShowModal={setShowModal} task={task}/>}
     </li>
   );
 }

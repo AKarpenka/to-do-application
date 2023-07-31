@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Modal from '../Modal/Modal';
 import './ListHeader.scss';
 
-const ListHeader = ({listName, getData, signOut}) => {
+const ListHeader = ({listName, signOut}) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -12,7 +12,7 @@ const ListHeader = ({listName, getData, signOut}) => {
         <button className="create" onClick={()=>setShowModal(true)}>ADD NEW</button>
         <button className="signout" onClick={signOut}>SIGN OUT</button>
       </div>
-      {showModal && <Modal mode={'create'} setShowModal={setShowModal} getData={getData}/>}
+      {showModal && <Modal mode={'create'} setShowModal={setShowModal}/>}
     </div>
   );
 }

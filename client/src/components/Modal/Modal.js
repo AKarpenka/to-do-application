@@ -14,7 +14,7 @@ import {
   selectAll
 } from '../ListItem/ListItemSlice';
 
-const Modal = ({mode, setShowModal, getData, task}) => {
+const Modal = ({mode, setShowModal, task}) => {
   const editMode = mode === "edit"? true : false;
   const [cookies, setCookie, removeCookie] = useCookies(null);
 

@@ -43,7 +43,7 @@ const App = () => {
           dispatch(tasksFetched(data))
         }
       })
-      .catch((err) =>{
+      .catch(() =>{
         dispatch(tasksFetchingError());
       });
   }

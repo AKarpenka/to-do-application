@@ -4,7 +4,7 @@ The classic implementation of the ToDo list, which includes most of the techniqu
 `ReactJS`  `Redux`  `Node.JS`  `Express.JS`  `PostgreSQL`  `Sass`
 
 # Preview 
-![]("%PUBLIC_URL%/ToDoApp.gif)
+![](%PUBLIC_URL%/ToDoApp.gif)
 adaptive design screenshots
 
 

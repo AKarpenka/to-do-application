@@ -14,7 +14,7 @@ The classic implementation of the ToDo list, which includes most of the techniqu
 # How to install 
 1. Clone the repository:
 ```cmd
-YourFolderName > git clone https://github.com/AKarpenka/to-do-application.git
+YourFolderName > git clone git@github.com:AKarpenka/to-do-application.git
 ```
 
 2. Install npm packages for the client:

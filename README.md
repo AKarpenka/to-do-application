@@ -8,7 +8,7 @@ The classic implementation of the ToDo list, which includes most of the techniqu
   <img src="client/public/ToDoApp.gif" width="500"/>
 </p>
 <p align="center">
-  <img src="client/public/respDesign.jpg" width="750"/> 
+  <img src="client/public/respDesign.jpg" width="800"/> 
 </p>
 
 # How to install 

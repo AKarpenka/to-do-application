@@ -5,7 +5,7 @@ The classic implementation of the ToDo list, which includes most of the techniqu
 
 # Preview 
 <p align="center">
-  <img src="client/public/ToDoApp.gif" width="450"/>
+  <img src="client/public/ToDoApp.gif" width="500"/>
 </p>
 <p align="center">
   <img src="client/public/respDesign.jpg" width="750"/> 

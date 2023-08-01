@@ -5,10 +5,10 @@ The classic implementation of the ToDo list, which includes most of the techniqu
 
 # Preview 
 <p align="center">
-  <img src="client/public/ToDoApp.gif" height="450"/>
+  <img src="client/public/ToDoApp.gif" width="450"/>
 </p>
 <p align="center">
-  <img src="client/public/respDesign.jpg" height="450"/> 
+  <img src="client/public/respDesign.jpg" width="550"/> 
 </p>
 
 # How to install 

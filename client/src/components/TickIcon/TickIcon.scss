@@ -2,3 +2,9 @@
 .tick {
     padding: 10px;
 }
+
+@media (max-width: 650px) {
+    .tick {
+        padding: 0;
+    }
+}

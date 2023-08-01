@@ -15,6 +15,7 @@
         width: 500px;
         background-color:rgb(255, 255, 255);
         padding: 40px;
+        margin: 0 10px;
         border-radius: 10px;
         box-shadow: rgba(0, 0, 0, 0.05) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 0 1px;
         position: relative;
@@ -41,6 +42,16 @@
 
         label {
             font-size: 13px;
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    .overlay {
+        align-items:flex-start;
+
+        .modal {
+            margin: 20px;
         }
     }
 }

@@ -8,6 +8,24 @@
     justify-content: space-between;
 
     .task-title {
-        width: 300px;
+        width: 60%;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .list-item {
+        display: block;
+        margin: 30px 0;
+
+        .info-container {
+            display: grid;
+            grid-template-columns: 25px auto;
+            margin: 10px;
+        }
+
+        .btn-container {
+            padding: 15px 0 20px 5px;
+        }
     }
 }

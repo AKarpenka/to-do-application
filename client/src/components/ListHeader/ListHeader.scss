@@ -5,3 +5,13 @@
     justify-content: space-between;
     border-bottom: rgba(0, 0, 0, 0.1) 1px solid;
 }
+
+@media (max-width: 650px) {
+    .list-header {
+        display: block;
+    }
+
+    .btn-container {
+        padding-bottom: 20px;
+    }
+}

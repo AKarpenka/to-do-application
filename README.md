@@ -4,7 +4,7 @@ The classic implementation of the ToDo list, which includes most of the techniqu
 `ReactJS`  `Redux`  `Node.JS`  `Express.JS`  `PostgreSQL`  `Sass`
 
 # Preview 
-<img src="client/public/ToDoApp.gif" height="450"/> <img src="client/public/respDesign.jpg" height="450"/> 
+<img src="client/public/ToDoApp.gif" height="450"/> <img src="client/public/respDesign.jpg" height="450" style="margin-left: auto; margin-right: auto;"/> 
 
 # How to install 
 1. Clone the repository:
